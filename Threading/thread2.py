@@ -3,19 +3,20 @@ import threading
 import time
 
 start = time.perf_counter()
-def doSomething():
-    print('Sleep 1 sec')
-    time.sleep(1)
+def doSomething(secs):
+    print(f'Sleep {secs} sec')
+    time.sleep(secs)
     print('Done')
 
-t1 = threading.Thread(target=doSomething)## dont put the()
-t2 = threading.Thread(target=doSomething)## dont put the()
+threads=[]
+for _ in range(10):
+    t = threading.Thread(target=doSomething,args=[1.5])
+    t.start()
+    threads.append(t)
 
-t1.start()
-t2.start()
+for thread in threads:
+    thread.join()
 
-t1.join()
-t2.join()
 
 finish = time.perf_counter()
 
