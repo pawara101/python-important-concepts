@@ -1,0 +1,3 @@
+## Parallelism
+---
+- Thread based
