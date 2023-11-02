@@ -10,8 +10,11 @@ def doSomething(secs):
     return 'Done.....'
 
 with concurrent.futures.ThreadPoolExecutor() as executor:
-    f1 = executor.submit(doSomething,1)
-    print(f1.result())
+    secs =[5,4,3,2,1]
+    results = [executor.submit(doSomething,sec) for sec in secs]
+
+    for f in concurrent.futures.as_completed(results):
+        print(f.result())
 
 # threads=[]
 # for _ in range(10):
