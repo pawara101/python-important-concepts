@@ -4,21 +4,20 @@ import multiprocessing
 
 start = time.perf_counter()
 
-def do_something():
-    print('Sleep 1 second')
-    time.sleep(1)
+def do_something(tm):
+    print(f'Sleep {tm} second')
+    time.sleep(tm)
     print('Done Sleeping....')
 
-p1 = multiprocessing.Process(target=do_something)
-p2 = multiprocessing.Process(target=do_something)
+process =[]
+for _ in range(10):
+    p = multiprocessing.Process(target=do_something,args=[1.5])
+    p.start()
+    process.append(p)
 
-## To run
-p1.start()
-p2.start()
+for procs in process:
+    procs.join()
 
-## Processes will finish then move to below lines
-p1.join()
-p2.join()
 
 finish = time.perf_counter()
 
